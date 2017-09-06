@@ -89,7 +89,7 @@ coords <- rbind(coords,temp_coord)
   rm(combined)
 }
 ```
-![indiaplot](https://user-images.githubusercontent.com/31407895/30099579-c0f9d54a-9303-11e7-912c-549e31d2c11f.png)
+![indiaplot](https://user-images.githubusercontent.com/31407895/30101311-719c3140-9309-11e7-9853-cc27fad0b895.png)
 
 ```{r}
 
