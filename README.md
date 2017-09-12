@@ -4,10 +4,15 @@
 
 ## India Analysis
 VIIRS Nighttime data obtained from: https://ngdc.noaa.gov/eog/viirs/download_dnb_composites.html (2017 monthly data, June month, Tile3_75N060E)
+This tile is the one  containing data that excludes any stray light.The file ending in avg_rade9 contains average radiances; this has been used here.
 
 India Shapefile: http://www.gadm.org/country (.rds file type)
-
+Here, we use the admin0 layer that has the country's shapefile.This shapefile is read into the wgs84 coordinate reference system, the standard for GPS. The same is done for the raster data from the tiff file.
+By assigning the same spatial projection, we can work across shapefiles and raster files
 India Population Data: http://www.census2011.co.in/states.php (used as a .csv file)
+
+
+
 ```{r}
 
 library(doParallel)
@@ -52,7 +57,7 @@ pop$NAME <- as.character(pop$State)
 
 ```
 Mapping India's nighttime data by cropping the shapefile.
-
+We first set the graph layout with no margins (mai), with 1 row and 1 column (mfrow), with a navy blue background (bg). A data frame is created for the coordinates which will be later called from source (google) in the looped code. The map we create focuses on comparing patterns across cities using the same color coding. Thus, one interval is generated based on a random sample of pixels (generated via set.seed) from across the country. A k-means clustering algorithm is used to find natural intervals within the radiance distribution. For each cluster of 10 pixels, we extract the maximum radiance. The country is then mapped with a navy to yellow color palette with intervals from the k-means clustering. To map the country, the extent specifies the spatial bounding box (the frame around the country) as +/-18 degree longitude and +/-18 degree latitude, from which all parts other than India are masked.
 
 ```{r}
 country<- c("India,In")
@@ -90,6 +95,8 @@ coords <- rbind(coords,temp_coord)
 }
 ```
 ![indiaplot](https://user-images.githubusercontent.com/31407895/30101311-719c3140-9309-11e7-9853-cc27fad0b895.png)
+
+To analyse the distribution of these radiances as seen on the graph, we now create a function that extracts the radiance values (rast) based on the shape of a geographic area from  shapefile (s), doing so for 1 to the i-th shape. The data frame hence created, contains Geoid/Locational name ( as Geoids for India are not available), the longitude, latitude and radiance values.The data is the processed first for India (country), and turned into a series of histograms using a combination of ggplot and plotly.
 
 ```{r}
 
@@ -163,7 +170,7 @@ attach(radiances)
 ```
 
 ![india histo](https://user-images.githubusercontent.com/31407895/30099611-db695e82-9303-11e7-93c8-776280785b00.png)
-
+We also see the radiance distribution as k-density distribution curve. The histogram and the curve both follow the same shape.
 
 ```{r}
 #To get the k-density plot to see the distribution curve.
