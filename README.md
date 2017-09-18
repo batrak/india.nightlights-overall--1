@@ -170,7 +170,7 @@ attach(radiances)
 ```
 
 ![india histo](https://user-images.githubusercontent.com/31407895/30099611-db695e82-9303-11e7-93c8-776280785b00.png)
-We also see the radiance distribution as k-density distribution curve. The histogram and the curve both follow the same shape.
+We also see the radiance distribution as k-density distribution curve. The histogram and the curve both follow the same shape. VIIRS data is already an average monthly composite term. Thus, the k-denisty plots this reported average radiance of each pixel.
 
 ```{r}
 #To get the k-density plot to see the distribution curve.
