@@ -172,6 +172,7 @@ attach(radiances)
 ![india histo](https://user-images.githubusercontent.com/31407895/30099611-db695e82-9303-11e7-93c8-776280785b00.png)
 
 |Average Radiance Summary Statistics|
+|-----------------------------------|
 |Minimum  |	-0.562|
 |Mean    	| 0.328|
 |Median   |	0.45|
