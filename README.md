@@ -177,7 +177,7 @@ attach(radiances)
 |Mean    	| 0.328|
 |Median   |	0.45|
 |Maximum	 | 19843.096|
-|Std.Error| 0.001079989|
+|Standard Error| 0.001079989|
 
 
 We also see the radiance distribution as k-density distribution curve. The histogram and the curve both follow the same shape. VIIRS data is already an average monthly composite term. Thus, the k-denisty plots this reported average radiance of each pixel.
