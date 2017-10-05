@@ -1,4 +1,4 @@
-# India Nightlights Analysis (Overall)
+# VIIRS Night-time India Analysis
 
 ---
 
@@ -8,9 +8,8 @@ This tile is the one  containing data that excludes any stray light.The file end
 
 India Shapefile: http://www.gadm.org/country (.rds file type)
 Here, we use the admin0 layer that has the country's shapefile.This shapefile is read into the wgs84 coordinate reference system, the standard for GPS. The same is done for the raster data from the tiff file.
-By assigning the same spatial projection, we can work across shapefiles and raster files
+By assigning the same spatial projection, we can work across shapefiles and raster files.
 India Population Data: http://www.census2011.co.in/states.php (used as a .csv file)
-
 
 
 ```{r}
@@ -168,9 +167,6 @@ attach(radiances)
   ggplotly()  %>% layout(xaxis=x, yaxis=y)
 
 ```
-
-![india histo](https://user-images.githubusercontent.com/31407895/30099611-db695e82-9303-11e7-93c8-776280785b00.png)
-
 |Average Radiance Summary Statistics|Radiance Value|
 |-----------------------------------|--------------|
 |Minimum  |	-0.562|
@@ -179,6 +175,15 @@ attach(radiances)
 |Maximum	 | 19843.096|
 |Standard Error| 0.001079989|
 
+The summary statistics clearly indicate the variance of the data collected. The VIIRS data is inclusive and sensitive to the Day/Night Band (DNB) which is panchromatic, sensitive to visible and near-infrared (NIR) wavelengths ranging from daylight down to the low levels of radiation observed at night.  When the DNB radiances are calculated during the production of the SDR files, the clear-sky offsets are subtracted, which may result in negative radiance values being reported. These values are kept in the SDR files (i.e. not replaced with SOUB fill) even though negative radiances are physically impossible because some physical features visible in DNB imagery would be lost if the negative values were excluded by the user. (See NOAA Techincal Report, VIIRS Imagery EDR User's Guide, 2013). [[http://rammb.cira.colostate.edu/projects/npp/VIIRS_Imagery_EDR_Users_Guide.pdf](url)]
+
+On further exploring the radiance dataset for India, we look at radiance distribution within different ranges through boxplots.
+
+![boxplots](https://user-images.githubusercontent.com/31407895/31211452-c61ce066-a9b6-11e7-9b2e-c6ab62752c64.PNG)
+
+The nature of such dispersed data is why we then plot the distribution of logarithimic values of radiances.
+
+![india histo](https://user-images.githubusercontent.com/31407895/30099611-db695e82-9303-11e7-93c8-776280785b00.png)
 
 We also see the radiance distribution as k-density distribution curve. The histogram and the curve both follow the same shape. VIIRS data is already an average monthly composite term. Thus, the k-denisty plots this reported average radiance of each pixel.
 
@@ -191,4 +196,17 @@ polygon(d, col="red",border="blue")
 
 ```
 ![india kdensity](https://user-images.githubusercontent.com/31407895/30099626-ebe2f818-9303-11e7-87fc-a6345cd8fe88.png)
+
+Extra:
+When the extremely high radiance values from the dataset are mapped, we see that these occur due to technical issues ( in a pattern on the map) or on geographic places that could have high reflectance (such as waterbodies).
+![image](https://user-images.githubusercontent.com/31407895/31211755-493acea2-a9b9-11e7-8673-a9bb9ef7378a.png)
+![image](https://user-images.githubusercontent.com/31407895/31211765-5b91051c-a9b9-11e7-9ab4-5f83820f73b0.png)
+![image](https://user-images.githubusercontent.com/31407895/31211773-750abd8a-a9b9-11e7-9076-63581b020a47.png)
+
+
+
+
+ 
+
+
 
